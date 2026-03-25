@@ -28,6 +28,11 @@ export interface ExplorationStep {
   type: StepType;
   nodeId: number;
   score: number | null;
+  alpha: number;
+  beta: number;
+  depth: number;
+  isMaximizing: boolean;
+  isTerminal?: boolean;
 }
 
 export type VizMode = 'idle' | 'stepping' | 'playing' | 'done';

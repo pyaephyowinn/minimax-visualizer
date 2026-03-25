@@ -62,7 +62,8 @@ function explore(
   steps: ExplorationStep[],
   maxDepth: number | null,
 ): number {
-  steps.push({ type: 'visit', nodeId: node.id, score: null });
+  const stepBase = { depth: node.depth, isMaximizing: node.isMaximizing };
+  steps.push({ type: 'visit', nodeId: node.id, score: null, alpha, beta, ...stepBase });
 
   const winner = checkWinner(node.board);
   const atDepthLimit = maxDepth !== null && node.depth >= maxDepth;
@@ -73,7 +74,7 @@ function explore(
     if (winner === aiPlayer) score = 1;
     else if (winner === humanPlayer) score = -1;
     node.score = score;
-    steps.push({ type: 'score', nodeId: node.id, score });
+    steps.push({ type: 'score', nodeId: node.id, score, alpha, beta, ...stepBase, isTerminal: true });
     return score;
   }
 
@@ -92,7 +93,7 @@ function explore(
     node.children.push(child);
 
     const childScore = explore(child, aiPlayer, humanPlayer, a, b, steps, maxDepth);
-    steps.push({ type: 'backpropagate', nodeId: node.id, score: childScore });
+    steps.push({ type: 'backpropagate', nodeId: node.id, score: childScore, alpha: a, beta: b, ...stepBase });
 
     if (node.isMaximizing) {
       if (childScore > bestScore) {
@@ -109,7 +110,7 @@ function explore(
     }
 
     if (b <= a) {
-      steps.push({ type: 'prune', nodeId: node.id, score: null });
+      steps.push({ type: 'prune', nodeId: node.id, score: null, alpha: a, beta: b, ...stepBase });
       // Mark remaining empty cells as pruned (not explored)
       node.pruned = true;
       break;
@@ -118,7 +119,7 @@ function explore(
 
   node.score = bestScore;
   node.bestChildId = bestChildId;
-  steps.push({ type: 'score', nodeId: node.id, score: bestScore });
+  steps.push({ type: 'score', nodeId: node.id, score: bestScore, alpha: a, beta: b, ...stepBase });
   return bestScore;
 }
 

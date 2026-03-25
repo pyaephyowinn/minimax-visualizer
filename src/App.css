@@ -334,10 +334,11 @@
   text-decoration: underline;
 }
 
-/* Right Panel / Tree */
+/* Right Panel / Tree + Debugger */
 .right-panel {
   min-height: 0;
   overflow: hidden;
+  position: relative;
 }
 
 .tree-container {
@@ -421,6 +422,219 @@
 
 .rd3t-grabbable:active {
   cursor: grabbing;
+}
+
+/* Code Debugger — Floating Panel */
+.debugger-float {
+  position: absolute;
+  z-index: 10;
+  width: 340px;
+  max-height: calc(100% - 32px);
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-panel);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.08);
+  user-select: none;
+}
+
+.debugger-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border-light);
+  flex-shrink: 0;
+  cursor: grab;
+}
+
+.debugger-header:active {
+  cursor: grabbing;
+}
+
+.debugger-title {
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--text);
+}
+
+.debugger-badge {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--purple);
+  border: 1px solid var(--purple);
+  border-radius: 3px;
+  padding: 2px 6px;
+  font-weight: 600;
+}
+
+.debugger-close {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 14px;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 3px;
+  line-height: 1;
+}
+
+.debugger-close:hover {
+  background: var(--bg);
+  color: var(--text);
+}
+
+.debugger-body-empty {
+  padding: 24px 14px;
+  text-align: center;
+}
+
+.debugger-placeholder {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.debugger-code {
+  flex: 1;
+  overflow-y: auto;
+  padding: 6px 0;
+  user-select: text;
+}
+
+.debugger-line {
+  display: flex;
+  align-items: center;
+  padding: 1px 12px 1px 0;
+  line-height: 21px;
+  transition: background 0.12s;
+}
+
+.debugger-line-blank {
+  height: 8px;
+}
+
+.debugger-line-active {
+  background: #fffbeb;
+  border-left: 3px solid var(--gold);
+  padding-left: 0;
+}
+
+.debugger-line:not(.debugger-line-active) {
+  padding-left: 3px;
+}
+
+.debugger-lineno {
+  width: 24px;
+  text-align: right;
+  color: var(--text-muted);
+  font-size: 10px;
+  flex-shrink: 0;
+  user-select: none;
+  padding-right: 6px;
+}
+
+.debugger-marker {
+  width: 14px;
+  flex-shrink: 0;
+  color: var(--gold);
+  font-size: 10px;
+  text-align: center;
+}
+
+.debugger-text {
+  color: var(--text);
+  white-space: pre;
+  font-size: 12px;
+}
+
+.debugger-keyword {
+  color: var(--purple);
+  font-weight: 500;
+}
+
+.debugger-comment {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.debugger-context {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 12px;
+  border-top: 1px solid var(--border-light);
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  background: var(--bg);
+  border-radius: 0 0 8px 8px;
+}
+
+.debugger-step-type {
+  font-weight: 600;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 2px 7px;
+  border-radius: 3px;
+}
+
+.debugger-step-visit {
+  color: var(--blue);
+  background: #eef4ff;
+}
+
+.debugger-step-score {
+  color: #15803d;
+  background: #dcfce7;
+}
+
+.debugger-step-backpropagate {
+  color: var(--gold);
+  background: #fffbeb;
+}
+
+.debugger-step-prune {
+  color: var(--o-color);
+  background: #fef2f2;
+}
+
+.debugger-detail {
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.debugger-score {
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* Toggle button to re-show debugger */
+.debugger-toggle-btn {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 10;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  background: var(--bg-panel);
+  color: var(--purple);
+  border: 1.5px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: background 0.12s, border-color 0.12s;
+}
+
+.debugger-toggle-btn:hover {
+  border-color: var(--purple);
+  background: rgba(124, 58, 237, 0.08);
 }
 
 /* Responsive */
