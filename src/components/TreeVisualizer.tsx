@@ -134,18 +134,27 @@ function CustomNode({ nodeDatum }: CustomNodeElementProps) {
         stroke={borderColor}
         strokeWidth={borderWidth}
       />
-      {/* MAX/MIN label - placed INSIDE the top of the node */}
-      <text
-        y={-NODE_H / 2 + 14}
-        textAnchor="middle"
-        fill={isMaximizing ? '#2563eb' : '#dc2626'}
-        fontSize={11}
-        fontWeight={700}
-        fontFamily="'DM Mono', monospace"
-        letterSpacing="0.5px"
+      {/* MAX/MIN label via foreignObject for proper font rendering */}
+      <foreignObject
+        x={-NODE_W / 2}
+        y={-NODE_H / 2 + 2}
+        width={NODE_W}
+        height={18}
       >
-        {isMaximizing ? 'MAX' : 'MIN'}
-      </text>
+        <div
+          style={{
+            fontSize: 11,
+            fontWeight: 300,
+            fontFamily: "'DM Mono', monospace",
+            letterSpacing: '0.5px',
+            color: isMaximizing ? '#2563eb' : '#dc2626',
+            textAlign: 'center',
+            lineHeight: '16px',
+          }}
+        >
+          {isMaximizing ? 'MAX' : 'MIN'}
+        </div>
+      </foreignObject>
       {/* Mini board via foreignObject */}
       <foreignObject
         x={-BOARD_SIZE / 2}
@@ -155,18 +164,27 @@ function CustomNode({ nodeDatum }: CustomNodeElementProps) {
       >
         <MiniBoardSvg board={board} />
       </foreignObject>
-      {/* Score - placed INSIDE the bottom of the node */}
+      {/* Score via foreignObject for proper font rendering */}
       {scored && score !== -999 && (
-        <text
-          y={NODE_H / 2 - 6}
-          textAnchor="middle"
-          fill={scoreColor}
-          fontSize={16}
-          fontWeight={700}
-          fontFamily="'DM Mono', monospace"
+        <foreignObject
+          x={-NODE_W / 2}
+          y={NODE_H / 2 - 22}
+          width={NODE_W}
+          height={22}
         >
-          {score}
-        </text>
+          <div
+            style={{
+              fontSize: 15,
+              fontWeight: 300,
+              fontFamily: "'DM Mono', monospace",
+              color: scoreColor,
+              textAlign: 'center',
+              lineHeight: '20px',
+            }}
+          >
+            {score}
+          </div>
+        </foreignObject>
       )}
     </g>
   );
