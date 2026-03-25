@@ -1,33 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&display=swap');
+
 :root {
-  --bg-primary: #0f1117;
-  --bg-secondary: #1a1b26;
-  --bg-tertiary: #24253a;
-  --text-primary: #e2e8f0;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
+  --bg: #f6f5f0;
+  --bg-panel: #ffffff;
+  --bg-tree: #fafaf7;
+  --bg-node: #ffffff;
+  --bg-node-max: #eef4ff;
+  --bg-node-min: #fef2f2;
+  --bg-node-best: #fffbeb;
 
-  --accent-blue: #60a5fa;
-  --accent-red: #f87171;
-  --accent-gold: #fbbf24;
-  --accent-green: #34d399;
-  --accent-purple: #a78bfa;
+  --border: #d4d2cc;
+  --border-light: #e8e6e1;
+  --border-node: #bbb8b0;
 
-  --cell-bg: #1e1f2e;
-  --cell-hover: #2a2b3d;
-  --cell-border: #363752;
+  --text: #1a1a1a;
+  --text-secondary: #555550;
+  --text-muted: #8a8880;
 
-  --border: #2e303a;
+  --blue: #2563eb;
+  --blue-light: #3b82f6;
+  --blue-border: #93c5fd;
+  --red: #dc2626;
+  --red-light: #ef4444;
+  --red-border: #fca5a5;
+  --gold: #d97706;
+  --gold-border: #fbbf24;
+  --green: #16a34a;
+  --purple: #7c3aed;
+  --purple-light: rgba(124, 58, 237, 0.08);
 
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+  --x-color: #2563eb;
+  --o-color: #dc2626;
+
+  --font-body: 'DM Sans', system-ui, sans-serif;
+  --font-mono: 'DM Mono', ui-monospace, Consolas, monospace;
 
   --radius: 8px;
-  --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
 
-  font-family: var(--font-sans);
-  color-scheme: dark;
-  color: var(--text-primary);
-  background: var(--bg-primary);
+  font-family: var(--font-body);
+  color: var(--text);
+  background: var(--bg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

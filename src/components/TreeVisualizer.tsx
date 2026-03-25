@@ -46,15 +46,15 @@ const BOARD_SIZE = 54;
 
 function MiniBoardSvg({ board }: { board: CellValue[] }) {
   const cellSize = BOARD_SIZE / 3;
-  const pad = cellSize * 0.15;
+  const pad = cellSize * 0.2;
 
   return (
     <svg width={BOARD_SIZE} height={BOARD_SIZE} style={{ display: 'block', margin: '0 auto' }}>
       {/* Grid lines */}
-      <line x1={cellSize} y1={0} x2={cellSize} y2={BOARD_SIZE} stroke="rgba(255,255,255,0.25)" strokeWidth={0.8} />
-      <line x1={cellSize * 2} y1={0} x2={cellSize * 2} y2={BOARD_SIZE} stroke="rgba(255,255,255,0.25)" strokeWidth={0.8} />
-      <line x1={0} y1={cellSize} x2={BOARD_SIZE} y2={cellSize} stroke="rgba(255,255,255,0.25)" strokeWidth={0.8} />
-      <line x1={0} y1={cellSize * 2} x2={BOARD_SIZE} y2={cellSize * 2} stroke="rgba(255,255,255,0.25)" strokeWidth={0.8} />
+      <line x1={cellSize} y1={0} x2={cellSize} y2={BOARD_SIZE} stroke="#888" strokeWidth={0.8} />
+      <line x1={cellSize * 2} y1={0} x2={cellSize * 2} y2={BOARD_SIZE} stroke="#888" strokeWidth={0.8} />
+      <line x1={0} y1={cellSize} x2={BOARD_SIZE} y2={cellSize} stroke="#888" strokeWidth={0.8} />
+      <line x1={0} y1={cellSize * 2} x2={BOARD_SIZE} y2={cellSize * 2} stroke="#888" strokeWidth={0.8} />
       {board.map((cell, i) => {
         if (!cell) return null;
         const col = i % 3;
@@ -65,12 +65,12 @@ function MiniBoardSvg({ board }: { board: CellValue[] }) {
         if (cell === 'X') {
           return (
             <g key={i}>
-              <line x1={cx - r} y1={cy - r} x2={cx + r} y2={cy + r} stroke="#60a5fa" strokeWidth={1.5} strokeLinecap="round" />
-              <line x1={cx + r} y1={cy - r} x2={cx - r} y2={cy + r} stroke="#60a5fa" strokeWidth={1.5} strokeLinecap="round" />
+              <line x1={cx - r} y1={cy - r} x2={cx + r} y2={cy + r} stroke="#2563eb" strokeWidth={2} strokeLinecap="round" />
+              <line x1={cx + r} y1={cy - r} x2={cx - r} y2={cy + r} stroke="#2563eb" strokeWidth={2} strokeLinecap="round" />
             </g>
           );
         }
-        return <circle key={i} cx={cx} cy={cy} r={r} fill="none" stroke="#f87171" strokeWidth={1.5} />;
+        return <circle key={i} cx={cx} cy={cy} r={r} fill="none" stroke="#dc2626" strokeWidth={2} />;
       })}
     </svg>
   );
@@ -86,30 +86,44 @@ function CustomNode({ nodeDatum }: CustomNodeElementProps) {
   const isCurrent = attrs.isCurrent === 1;
   const pruned = attrs.pruned === 1;
 
-  let bgColor = 'rgba(255,255,255,0.03)';
-  let borderColor = '#363752';
+  // Light theme: white nodes with colored borders
+  let bgColor = '#ffffff';
+  let borderColor = '#bbb8b0';
   let borderWidth = 1.5;
 
   if (scored) {
-    bgColor = isMaximizing ? 'rgba(96,165,250,0.12)' : 'rgba(248,113,113,0.12)';
-    borderColor = isMaximizing ? '#60a5fa' : '#f87171';
+    bgColor = isMaximizing ? '#eef4ff' : '#fef2f2';
+    borderColor = isMaximizing ? '#2563eb' : '#dc2626';
+    borderWidth = 2;
   }
   if (pruned && scored) {
-    bgColor = 'rgba(100,116,139,0.08)';
-    borderColor = '#475569';
+    bgColor = '#f5f5f4';
+    borderColor = '#a8a29e';
   }
   if (isBestPath) {
-    borderColor = '#fbbf24';
-    borderWidth = 2.5;
+    bgColor = '#fffbeb';
+    borderColor = '#d97706';
+    borderWidth = 3;
   }
   if (isCurrent) {
+    borderColor = '#7c3aed';
     borderWidth = 3;
   }
 
-  const scoreColor = score > 0 ? '#34d399' : score < 0 ? '#f87171' : '#94a3b8';
+  const scoreColor = score > 0 ? '#16a34a' : score < 0 ? '#dc2626' : '#555550';
 
   return (
     <g>
+      {/* Drop shadow */}
+      <rect
+        x={-NODE_W / 2 + 2}
+        y={-NODE_H / 2 + 2}
+        width={NODE_W}
+        height={NODE_H}
+        rx={6}
+        fill="rgba(0,0,0,0.06)"
+      />
+      {/* Node background */}
       <rect
         x={-NODE_W / 2}
         y={-NODE_H / 2}
@@ -119,38 +133,37 @@ function CustomNode({ nodeDatum }: CustomNodeElementProps) {
         fill={bgColor}
         stroke={borderColor}
         strokeWidth={borderWidth}
-        filter={isCurrent ? 'drop-shadow(0 0 6px rgba(167,139,250,0.5))' : undefined}
       />
-      {/* MAX/MIN label */}
+      {/* MAX/MIN label - placed INSIDE the top of the node */}
       <text
-        y={-NODE_H / 2 - 6}
+        y={-NODE_H / 2 + 14}
         textAnchor="middle"
-        fill={isMaximizing ? '#60a5fa' : '#f87171'}
-        fontSize={12}
-        fontFamily="var(--font-mono)"
-        fontWeight={600}
-        opacity={0.85}
+        fill={isMaximizing ? '#2563eb' : '#dc2626'}
+        fontSize={11}
+        fontWeight={700}
+        fontFamily="'DM Mono', monospace"
+        letterSpacing="0.5px"
       >
         {isMaximizing ? 'MAX' : 'MIN'}
       </text>
       {/* Mini board via foreignObject */}
       <foreignObject
         x={-BOARD_SIZE / 2}
-        y={-BOARD_SIZE / 2 - 6}
+        y={-NODE_H / 2 + 18}
         width={BOARD_SIZE}
         height={BOARD_SIZE}
       >
         <MiniBoardSvg board={board} />
       </foreignObject>
-      {/* Score */}
+      {/* Score - placed INSIDE the bottom of the node */}
       {scored && score !== -999 && (
         <text
-          y={NODE_H / 2 - 8}
+          y={NODE_H / 2 - 6}
           textAnchor="middle"
           fill={scoreColor}
           fontSize={16}
-          fontFamily="var(--font-mono)"
           fontWeight={700}
+          fontFamily="'DM Mono', monospace"
         >
           {score}
         </text>
@@ -173,7 +186,7 @@ export function TreeVisualizer() {
   const centerTree = useCallback(() => {
     if (containerRef.current) {
       const { width } = containerRef.current.getBoundingClientRect();
-      setTranslate({ x: width / 2, y: 60 });
+      setTranslate({ x: width / 2, y: 70 });
     }
   }, []);
 
@@ -225,13 +238,13 @@ export function TreeVisualizer() {
       />
       <div className="tree-legend">
         <span className="legend-item">
-          <span className="legend-dot" style={{ background: '#60a5fa' }} /> MAX
+          <span className="legend-dot" style={{ background: '#2563eb' }} /> MAX
         </span>
         <span className="legend-item">
-          <span className="legend-dot" style={{ background: '#f87171' }} /> MIN
+          <span className="legend-dot" style={{ background: '#dc2626' }} /> MIN
         </span>
         <span className="legend-item">
-          <span className="legend-dot" style={{ background: '#fbbf24' }} /> Best
+          <span className="legend-dot" style={{ background: '#d97706' }} /> Best
         </span>
       </div>
     </div>

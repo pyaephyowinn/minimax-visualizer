@@ -4,30 +4,37 @@
   min-height: 100svh;
 }
 
+/* Header */
 .app-header {
-  padding: 20px 24px;
-  border-bottom: 1px solid var(--border);
-  text-align: center;
+  padding: 16px 24px;
+  border-bottom: 2px solid var(--text);
+  background: var(--bg-panel);
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
 }
 
 .app-header h1 {
   margin: 0;
-  font-size: 24px;
-  font-weight: 600;
-  color: var(--text-primary);
-  letter-spacing: -0.5px;
-}
-
-.app-subtitle {
-  margin: 4px 0 0;
-  font-size: 13px;
-  color: var(--text-muted);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.3px;
   font-family: var(--font-mono);
 }
 
+.app-subtitle {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-weight: 300;
+}
+
+/* Main Layout */
 .app-main {
   display: grid;
-  grid-template-columns: 340px 1fr;
+  grid-template-columns: 320px 1fr;
   flex: 1;
   min-height: 0;
 }
@@ -36,9 +43,10 @@
 .left-panel {
   display: flex;
   flex-direction: column;
-  border-right: 1px solid var(--border);
+  border-right: 2px solid var(--text);
   padding: 24px;
   gap: 20px;
+  background: var(--bg-panel);
 }
 
 /* Board */
@@ -49,31 +57,31 @@
 
 .board {
   display: grid;
-  grid-template-columns: repeat(3, 80px);
-  grid-template-rows: repeat(3, 80px);
-  gap: 4px;
+  grid-template-columns: repeat(3, 76px);
+  grid-template-rows: repeat(3, 76px);
+  gap: 0;
+  border: 2px solid var(--text);
 }
 
 .cell {
-  background: var(--cell-bg);
-  border: 1.5px solid var(--cell-border);
-  border-radius: 6px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 32px;
   font-weight: 700;
-  transition: background 0.15s, border-color 0.15s, transform 0.1s;
+  transition: background 0.12s;
   padding: 0;
+  outline: none;
 }
 
 .cell:not(.cell-disabled):hover {
-  background: var(--cell-hover);
-  border-color: var(--accent-purple);
+  background: var(--purple-light);
 }
 
 .cell:not(.cell-disabled):active {
-  transform: scale(0.95);
+  transform: scale(0.96);
 }
 
 .cell-disabled {
@@ -81,31 +89,33 @@
 }
 
 .cell-X .cell-mark {
-  color: var(--accent-blue);
-  text-shadow: 0 0 12px rgba(96, 165, 250, 0.4);
+  color: var(--x-color);
+  font-family: var(--font-mono);
+  font-weight: 500;
 }
 
 .cell-O .cell-mark {
-  color: var(--accent-red);
-  text-shadow: 0 0 12px rgba(248, 113, 113, 0.4);
+  color: var(--o-color);
+  font-family: var(--font-mono);
+  font-weight: 500;
 }
 
 .cell-winning {
-  border-color: var(--accent-gold) !important;
-  box-shadow: 0 0 16px rgba(251, 191, 36, 0.3);
+  background: var(--bg-node-best) !important;
+  border-color: var(--gold) !important;
 }
 
 .cell-last {
-  border-color: var(--accent-purple);
+  background: rgba(124, 58, 237, 0.04);
 }
 
 .cell-mark {
-  animation: markAppear 0.2s ease-out;
+  animation: markAppear 0.15s ease-out;
 }
 
 @keyframes markAppear {
   from {
-    transform: scale(0.3);
+    transform: scale(0.5);
     opacity: 0;
   }
   to {
@@ -118,17 +128,18 @@
 .controls {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
 .controls-status {
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 500;
   text-align: center;
   color: var(--text-secondary);
   padding: 8px;
-  background: var(--bg-secondary);
-  border-radius: var(--radius);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
   font-family: var(--font-mono);
 }
 
@@ -140,15 +151,15 @@
 
 .progress-bar {
   flex: 1;
-  height: 4px;
-  background: var(--bg-tertiary);
+  height: 3px;
+  background: var(--border-light);
   border-radius: 2px;
   overflow: hidden;
 }
 
 .progress-fill {
   height: 100%;
-  background: var(--accent-purple);
+  background: var(--purple);
   border-radius: 2px;
   transition: width 0.1s;
 }
@@ -157,47 +168,49 @@
   font-size: 11px;
   color: var(--text-muted);
   font-family: var(--font-mono);
-  min-width: 70px;
+  min-width: 65px;
   text-align: right;
 }
 
 .controls-buttons {
   display: flex;
-  gap: 6px;
+  gap: 4px;
   flex-wrap: wrap;
 }
 
 .btn {
   flex: 1;
-  padding: 8px 12px;
+  padding: 7px 10px;
   font-size: 13px;
   font-weight: 500;
-  border-radius: 6px;
-  border: 1px solid var(--border);
-  background: var(--bg-secondary);
-  color: var(--text-primary);
-  transition: background 0.15s, border-color 0.15s;
-  min-width: 60px;
+  border-radius: 4px;
+  border: 1.5px solid var(--border);
+  background: var(--bg-panel);
+  color: var(--text);
+  transition: background 0.12s, border-color 0.12s;
+  min-width: 55px;
+  font-family: var(--font-mono);
 }
 
 .btn:hover {
-  background: var(--bg-tertiary);
-  border-color: var(--accent-purple);
+  background: var(--bg);
+  border-color: var(--text-secondary);
 }
 
 .btn:disabled {
-  opacity: 0.4;
+  opacity: 0.35;
   cursor: default;
 }
 
 .btn-primary {
-  background: rgba(167, 139, 250, 0.2);
-  border-color: var(--accent-purple);
-  color: var(--accent-purple);
+  background: var(--text);
+  border-color: var(--text);
+  color: var(--bg-panel);
 }
 
 .btn-primary:hover {
-  background: rgba(167, 139, 250, 0.3);
+  background: var(--text-secondary);
+  border-color: var(--text-secondary);
 }
 
 .controls-settings {
@@ -210,25 +223,27 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-  font-size: 11px;
+  font-size: 10px;
   color: var(--text-muted);
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
+  font-family: var(--font-mono);
 }
 
 .setting input[type='range'] {
   width: 100%;
-  accent-color: var(--accent-purple);
-  height: 4px;
+  accent-color: var(--purple);
+  height: 3px;
 }
 
 .setting select {
-  background: var(--bg-secondary);
-  color: var(--text-primary);
-  border: 1px solid var(--border);
+  background: var(--bg-panel);
+  color: var(--text);
+  border: 1.5px solid var(--border);
   border-radius: 4px;
   padding: 4px 6px;
   font-size: 13px;
+  font-family: var(--font-mono);
 }
 
 /* Right Panel / Tree */
@@ -241,9 +256,12 @@
   width: 100%;
   height: 100%;
   position: relative;
-  background: var(--bg-secondary);
+  background: var(--bg-tree);
   overflow: hidden;
   user-select: none;
+  /* Subtle dot grid background */
+  background-image: radial-gradient(circle, var(--border-light) 1px, transparent 1px);
+  background-size: 20px 20px;
 }
 
 .tree-empty {
@@ -254,21 +272,8 @@
 
 .tree-placeholder {
   color: var(--text-muted);
-  font-size: 15px;
+  font-size: 14px;
   font-family: var(--font-mono);
-}
-
-.tree-zoom-info {
-  position: absolute;
-  bottom: 12px;
-  right: 12px;
-  font-size: 11px;
-  font-family: var(--font-mono);
-  color: var(--text-muted);
-  background: var(--bg-primary);
-  padding: 3px 8px;
-  border-radius: 4px;
-  border: 1px solid var(--border);
 }
 
 .tree-legend {
@@ -276,26 +281,28 @@
   top: 12px;
   right: 12px;
   display: flex;
-  gap: 12px;
+  gap: 14px;
   font-size: 11px;
   font-family: var(--font-mono);
+  font-weight: 500;
   color: var(--text-secondary);
-  background: rgba(15, 17, 23, 0.8);
-  padding: 6px 12px;
-  border-radius: 6px;
-  border: 1px solid var(--border);
+  background: var(--bg-panel);
+  padding: 6px 14px;
+  border-radius: 4px;
+  border: 1.5px solid var(--border);
+  box-shadow: var(--shadow-sm);
 }
 
 .legend-item {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 5px;
 }
 
 .legend-dot {
   width: 8px;
   height: 8px;
-  border-radius: 50%;
+  border-radius: 2px;
   display: inline-block;
 }
 
@@ -309,14 +316,10 @@
   font-size: 13px;
 }
 
-.tree-node-current rect {
-  filter: drop-shadow(0 0 8px rgba(167, 139, 250, 0.6));
-}
-
-/* react-d3-tree link styling */
+/* react-d3-tree links */
 .tree-link {
-  stroke: #363752 !important;
-  stroke-width: 1 !important;
+  stroke: var(--border) !important;
+  stroke-width: 1.5 !important;
 }
 
 .rd3t-tree-container {
@@ -334,6 +337,11 @@
 
 /* Responsive */
 @media (max-width: 768px) {
+  .app-header {
+    flex-direction: column;
+    gap: 2px;
+  }
+
   .app-main {
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr;
@@ -341,7 +349,7 @@
 
   .left-panel {
     border-right: none;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 2px solid var(--text);
   }
 
   .right-panel {
