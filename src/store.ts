@@ -84,7 +84,7 @@ export const useStore = create<AppStore>((set, get) => ({
   mode: 'idle',
   speed: 200,
   bestMove: null,
-  depthLimit: 6,
+  depthLimit: 3,
 
   humanMove: (cell: number) => {
     const { game } = get();

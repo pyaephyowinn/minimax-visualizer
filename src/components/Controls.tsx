@@ -6,6 +6,7 @@ export function Controls() {
   const depthLimit = useStore((s) => s.depthLimit);
   const game = useStore((s) => s.game);
   const currentStepIndex = useStore((s) => s.currentStepIndex);
+  // game used for gameOver check in buttons
   const steps = useStore((s) => s.steps);
 
   const vizStep = useStore((s) => s.vizStep);
@@ -19,21 +20,8 @@ export function Controls() {
 
   const progress = steps.length > 0 ? Math.round(((currentStepIndex + 1) / steps.length) * 100) : 0;
 
-  const statusText = () => {
-    if (game.gameOver) {
-      if (game.winner === 'draw') return 'Draw!';
-      return `${game.winner} wins!`;
-    }
-    if (mode === 'idle' && game.currentPlayer === 'X') return 'Your turn (X)';
-    if (mode === 'playing' || mode === 'stepping') return 'AI is thinking...';
-    if (mode === 'done') return 'AI ready to move';
-    return '';
-  };
-
   return (
     <div className="controls">
-      <div className="controls-status">{statusText()}</div>
-
       {steps.length > 0 && (
         <div className="controls-progress">
           <div className="progress-bar">
@@ -101,11 +89,11 @@ export function Controls() {
               setDepthLimit(e.target.value === 'full' ? null : Number(e.target.value))
             }
           >
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="full">Full</option>
+            <option value="3">3 - Easy</option>
+            <option value="4">4 - Normal</option>
+            <option value="5">5 - Hard</option>
+            <option value="6">6 - Expert</option>
+            <option value="full">Full - Unbeatable</option>
           </select>
         </label>
       </div>

@@ -70,9 +70,8 @@ function explore(
   if (winner !== null || atDepthLimit) {
     node.isTerminal = true;
     let score = 0;
-    if (winner === aiPlayer) score = 10 - node.depth;
-    else if (winner === humanPlayer) score = -(10 - node.depth);
-    // draw or depth limit with no winner = 0
+    if (winner === aiPlayer) score = 1;
+    else if (winner === humanPlayer) score = -1;
     node.score = score;
     steps.push({ type: 'score', nodeId: node.id, score });
     return score;

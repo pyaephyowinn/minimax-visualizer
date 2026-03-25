@@ -31,6 +31,18 @@
   font-weight: 300;
 }
 
+.github-link {
+  margin-left: auto;
+  color: var(--text-muted);
+  transition: color 0.15s;
+  display: flex;
+  align-items: center;
+}
+
+.github-link:hover {
+  color: var(--text);
+}
+
 /* Main Layout */
 .app-main {
   display: grid;
@@ -47,6 +59,65 @@
   padding: 24px;
   gap: 20px;
   background: var(--bg-panel);
+}
+
+/* Status Bar */
+.status-bar {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1.5px solid var(--border);
+  color: var(--text-secondary);
+  background: var(--bg);
+  transition: all 0.2s;
+}
+
+.status-your-turn {
+  color: var(--blue);
+  background: #eef4ff;
+  border-color: var(--blue-border);
+}
+
+.status-thinking {
+  color: var(--purple);
+  background: #f3f0ff;
+  border-color: #c4b5fd;
+}
+
+.status-ready {
+  color: var(--gold);
+  background: #fffbeb;
+  border-color: var(--gold-border);
+}
+
+.status-win {
+  color: #15803d;
+  background: #dcfce7;
+  border-color: #86efac;
+  font-size: 18px;
+  font-weight: 700;
+  padding: 14px;
+}
+
+.status-lose {
+  color: #b91c1c;
+  background: #fef2f2;
+  border-color: #fca5a5;
+  font-size: 18px;
+  font-weight: 700;
+  padding: 14px;
+}
+
+.status-draw {
+  color: var(--gold);
+  background: #fffbeb;
+  border-color: var(--gold-border);
+  font-size: 18px;
+  font-weight: 700;
+  padding: 14px;
 }
 
 /* Board */
@@ -129,18 +200,6 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-}
-
-.controls-status {
-  font-size: 13px;
-  font-weight: 500;
-  text-align: center;
-  color: var(--text-secondary);
-  padding: 8px;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  font-family: var(--font-mono);
 }
 
 .controls-progress {
@@ -244,6 +303,35 @@
   padding: 4px 6px;
   font-size: 13px;
   font-family: var(--font-mono);
+}
+
+/* Minimax Info */
+.minimax-info {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-light);
+}
+
+.minimax-info p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+.minimax-info strong {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.minimax-info a {
+  color: var(--purple);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.minimax-info a:hover {
+  text-decoration: underline;
 }
 
 /* Right Panel / Tree */

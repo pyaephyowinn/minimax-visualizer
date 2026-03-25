@@ -216,7 +216,7 @@ export function TreeVisualizer() {
     return (
       <div className="tree-container tree-empty" ref={containerRef}>
         <div className="tree-placeholder">
-          <p>Make a move to see the MiniMax tree</p>
+          <p>Make 2 moves to see the MiniMax tree</p>
         </div>
       </div>
     );
