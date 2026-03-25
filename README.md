@@ -12,8 +12,6 @@ An interactive TicTacToe game that visualizes the MiniMax algorithm with alpha-b
 - Play/pause/step controls for the visualization
 - Pan and zoom the tree
 
-![Initial state](public/screenshots/initial-state.png)
-
 ## Getting Started
 
 ```bash
